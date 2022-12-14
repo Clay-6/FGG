@@ -21,7 +21,8 @@ async fn main() -> Result<()> {
     let html = res.text().await?;
 
     if let Some(def) = get_def(&html) {
-        println!("{def}")
+        println!("{def}");
+        println!("[See {url}]")
     } else {
         println!("No results.")
     }
