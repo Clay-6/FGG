@@ -3,6 +3,7 @@ mod cli;
 use clap::Parser;
 use cli::Args;
 use color_eyre::Result;
+use regex::Regex;
 use serde::Deserialize;
 
 const BASE_URL: &str = "https://glossary.infil.net/?t=";
@@ -20,7 +21,7 @@ async fn main() -> Result<()> {
         .iter()
         .find(|d| d.term.to_lowercase() == term.to_lowercase())
     {
-        println!("{}", def.def);
+        println!("{}", def.text());
         println!("{BASE_URL}{term}");
     } else {
         println!("No results.")
@@ -33,4 +34,18 @@ async fn main() -> Result<()> {
 struct Definition {
     term: String,
     def: String,
+}
+
+impl Definition {
+    fn text(&self) -> String {
+        let opening_regex = Regex::new("!<'").unwrap();
+        let closing_regex = Regex::new("'>").unwrap();
+        let doubles_regex = Regex::new("[A-z]+','").unwrap();
+        let tags_regex = Regex::new("<[^>]*>").unwrap();
+
+        let mut tmp = opening_regex.replace_all(&self.def, "").to_string();
+        tmp = closing_regex.replace_all(&tmp, "").to_string();
+        tmp = doubles_regex.replace_all(&tmp, "").to_string();
+        tags_regex.replace_all(&tmp, "").to_string()
+    }
 }
