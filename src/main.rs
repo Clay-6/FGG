@@ -21,7 +21,20 @@ async fn main() -> Result<()> {
         .iter()
         .find(|d| d.term.to_lowercase() == term.to_lowercase())
     {
-        println!("{}", def.text());
+        let tmp = def.text();
+        let text = tmp.split_whitespace().collect::<Vec<_>>();
+        let mut txt = text.clone();
+        for (i, w) in txt
+            .iter_mut()
+            .enumerate()
+            .take_while(|(i, _)| *i < (text.len() - 1))
+        {
+            if *w.to_lowercase() == text[i + 1].to_lowercase() {
+                *w = "";
+            }
+        }
+        let text = txt.iter().map(|w| w.to_string() + " ").collect::<String>();
+        println!("{}", text);
         println!("[{BASE_URL}{term}]");
     } else {
         println!("No results.")
