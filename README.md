@@ -16,7 +16,7 @@ where `[term]` is the term you want defined
 
 ### Manually
 
-Download the [latest release] from GitHub & place the executable anywhere on your PATH.
+Download the [latest release](https://github.com/Clay-6/FGG/releases/latest) from GitHub & place the executable anywhere on your PATH.
 
 ### Through Cargo
 
