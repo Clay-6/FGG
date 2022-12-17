@@ -22,7 +22,7 @@ async fn main() -> Result<()> {
         .find(|d| d.term.to_lowercase() == term.to_lowercase())
     {
         println!("{}", def.text());
-        println!("{BASE_URL}{term}");
+        println!("[{BASE_URL}{term}]");
     } else {
         println!("No results.")
     }
