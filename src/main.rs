@@ -34,7 +34,8 @@ async fn main() -> Result<()> {
             }
         }
         let text = txt.iter().map(|w| w.to_string() + " ").collect::<String>();
-        println!("{}", text);
+        let double_space = Regex::new("  ").unwrap();
+        println!("{}", double_space.replace_all(&text, " "));
         println!("[{BASE_URL}{term}]");
     } else {
         println!("No results.")
