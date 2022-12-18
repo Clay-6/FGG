@@ -23,6 +23,13 @@ async fn main() -> Result<()> {
     {
         println!("{}", def.text());
         println!("[{BASE_URL}{term}]");
+    } else if let Some(def) = json.iter().find(|d| {
+        d.alt_terms()
+            .iter()
+            .any(|t| t.to_lowercase() == term.to_lowercase())
+    }) {
+        println!("{}", def.text());
+        println!("[{BASE_URL}{term}");
     } else {
         println!("No results.")
     }

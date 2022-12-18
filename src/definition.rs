@@ -5,11 +5,16 @@ use serde::Deserialize;
 pub struct Definition {
     term: String,
     def: String,
+    altterm: Option<Vec<String>>,
 }
 
 impl Definition {
     pub fn term(&self) -> String {
         self.term.clone()
+    }
+
+    pub fn alt_terms(&self) -> Vec<String> {
+        self.altterm.clone().unwrap_or_default()
     }
 
     pub fn text(&self) -> String {
