@@ -5,8 +5,8 @@ use serde::Deserialize;
 pub struct Definition {
     term: String,
     def: String,
-    #[serde(default)]
-    altterm: Vec<String>,
+    #[serde(default, rename = "altterm")]
+    alt_terms: Vec<String>,
 }
 
 impl Definition {
@@ -15,7 +15,7 @@ impl Definition {
     }
 
     pub fn alt_terms(&self) -> Vec<String> {
-        self.altterm.clone()
+        self.alt_terms.clone()
     }
 
     pub fn text(&self) -> String {
