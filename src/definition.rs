@@ -44,4 +44,23 @@ impl Definition {
         let text = txt.iter().map(|s| s.to_string() + " ").collect::<String>();
         double_space.replace_all(&text, " ").to_string()
     }
+
+    pub fn text_wrapping(&self) -> String {
+        let mut text = self
+            .text()
+            .split_whitespace()
+            .map(|s| s.to_string())
+            .collect::<Vec<_>>();
+        let mut line_chars = 0;
+
+        for w in text.iter_mut() {
+            line_chars += w.len();
+            if line_chars > 80 {
+                w.insert(0, '\n');
+                line_chars = 0;
+            }
+        }
+
+        text.join(" ")
+    }
 }

@@ -21,14 +21,14 @@ async fn main() -> Result<()> {
         .iter()
         .find(|d| d.term().to_lowercase() == term.to_lowercase())
     {
-        println!("{}", def.text());
+        println!("{}", def.text_wrapping());
         println!("[{BASE_URL}/?t={term}]");
     } else if let Some(def) = json.iter().find(|d| {
         d.alt_terms()
             .iter()
             .any(|t| t.to_lowercase() == term.to_lowercase())
     }) {
-        println!("{}", def.text());
+        println!("{}", def.text_wrapping());
         println!("[{BASE_URL}/?t={term}]");
     } else {
         println!("No results.")
