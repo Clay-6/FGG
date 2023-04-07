@@ -10,12 +10,12 @@ pub struct Definition {
 }
 
 impl Definition {
-    pub fn term(&self) -> String {
-        self.term.clone()
+    pub fn term(&self) -> &str {
+        &self.term
     }
 
-    pub fn alt_terms(&self) -> Vec<String> {
-        self.alt_terms.clone()
+    pub fn alt_terms(&self) -> &[String] {
+        &self.alt_terms
     }
 
     pub fn text(&self) -> String {
