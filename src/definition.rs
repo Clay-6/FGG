@@ -45,7 +45,7 @@ impl Definition {
         double_space.replace_all(&text, " ").to_string()
     }
 
-    pub fn text_wrapping(&self) -> String {
+    pub fn text_wrapping(&self, limit: usize) -> String {
         let mut text = self
             .text()
             .split_whitespace()
@@ -55,7 +55,7 @@ impl Definition {
 
         for w in text.iter_mut() {
             line_chars += w.len();
-            if line_chars > 80 {
+            if line_chars > limit {
                 w.insert(0, '\n');
                 line_chars = 0;
             }

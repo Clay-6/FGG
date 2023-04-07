@@ -13,7 +13,7 @@ const JSON_URL: &str = "https://glossary.infil.net/json/glossary.json";
 async fn main() -> Result<()> {
     color_eyre::install()?;
 
-    let Args { term } = Args::parse();
+    let Args { term, wrap } = Args::parse();
     let res = reqwest::Client::new().get(JSON_URL).send().await?;
     let json: Vec<Definition> = serde_json::from_str(&res.text().await?)?;
 
@@ -21,14 +21,14 @@ async fn main() -> Result<()> {
         .iter()
         .find(|d| d.term().to_lowercase() == term.to_lowercase())
     {
-        println!("{}", def.text_wrapping());
+        println!("{}", def.text_wrapping(wrap));
         println!("[{BASE_URL}/?t={term}]");
     } else if let Some(def) = json.iter().find(|d| {
         d.alt_terms()
             .iter()
             .any(|t| t.to_lowercase() == term.to_lowercase())
     }) {
-        println!("{}", def.text_wrapping());
+        println!("{}", def.text_wrapping(wrap));
         println!("[{BASE_URL}/?t={term}]");
     } else {
         println!("No results.")
