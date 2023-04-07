@@ -6,7 +6,7 @@ use cli::Args;
 use color_eyre::Result;
 use definition::Definition;
 
-const BASE_URL: &str = "https://glossary.infil.net/?t=";
+const BASE_URL: &str = "https://glossary.infil.net";
 const JSON_URL: &str = "https://glossary.infil.net/json/glossary.json";
 
 #[tokio::main]
@@ -22,14 +22,14 @@ async fn main() -> Result<()> {
         .find(|d| d.term().to_lowercase() == term.to_lowercase())
     {
         println!("{}", def.text());
-        println!("[{BASE_URL}{term}]");
+        println!("[{BASE_URL}/?t={term}]");
     } else if let Some(def) = json.iter().find(|d| {
         d.alt_terms()
             .iter()
             .any(|t| t.to_lowercase() == term.to_lowercase())
     }) {
         println!("{}", def.text());
-        println!("[{BASE_URL}{term}");
+        println!("[{BASE_URL}/?t={term}]");
     } else {
         println!("No results.")
     }
