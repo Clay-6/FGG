@@ -1,6 +1,6 @@
 [package]
 name = "fgg"
-version = "1.0.0"
+version = "1.1.0"
 authors = ["Clay66"]
 description = "A CLI application to connect to The Fighting Game Glossary by Infil"
 license = "GPL-3.0"
